@@ -1,41 +1,36 @@
 package br.com.bummpay;
 
 import br.com.bummpay.domain.entity.Cliente;
-import br.com.bummpay.domain.entity.Pedido;
 import br.com.bummpay.domain.repository.Clientes;
 import br.com.bummpay.domain.repository.Pedidos;
-import ch.qos.logback.core.net.server.Client;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 
 @SpringBootApplication
 @RestController
 public class BummPayApplication {
 
+    public static void main (String[] args){
+        SpringApplication.run(BummPayApplication.class, args);
+    }
 
-    @Value("${application.name}")
+    /*@Value("${application.name}")
     private String getApplicationName;
 
     @GetMapping("/hello")
     public String helloWorld(){
         return getApplicationName;
-    }
-
+    }*/
+/*
     @Bean
     public CommandLineRunner init(@Autowired Clientes clientes, Pedidos pedidos){
         return args -> {
 
-            System.out.println("/nSalvando Clientes");
+         *//*   System.out.println("/nSalvando Clientes");
             Cliente cliente = clientes.save(new Cliente("Ana","123456789"));
 
             Pedido p = new Pedido();
@@ -45,25 +40,22 @@ public class BummPayApplication {
 
             pedidos.save(p);
 
-/*            cliente = clientes.findClienteFetchPedido(cliente.getId());
+            cliente = clientes.findClienteFetchPedido(cliente.getId());
             System.out.println(cliente);
-            System.out.println(cliente.getPedidos());*/
+            System.out.println(cliente.getPedidos());
+
 
             pedidos.findByCliente(cliente).forEach(System.out::println);
+*//*
 
-
-
-
-
-          /*  System.out.println("/nSalvando Clientes");
-
+            System.out.println("/nSalvando Clientes");
 
             clientes.save(new Cliente("Ana","123456789"));
             clientes.save(new Cliente("Ronaldo","987456321"));
             clientes.save(new Cliente("Pedro","123789456"));
             clientes.save(new Cliente("Matheus","321897654"));
 
-            List<Cliente> todosClientes = clientes.findAll();
+         *//*   List<Cliente> todosClientes = clientes.findAll();
             todosClientes.forEach(System.out::println);
 
             System.out.println("/nAtualizando Clientes");
@@ -90,13 +82,12 @@ public class BummPayApplication {
                 System.out.println("Nenhum cliente encontrado");
             }else{
                 todosClientes.forEach(System.out::println);
-            }*/
+            }*//*
+
 
         };
-    };
+    };*/
 
-    public static void main (String[] args){
-        SpringApplication.run(BummPayApplication.class, args);
-    }
+
 
 }

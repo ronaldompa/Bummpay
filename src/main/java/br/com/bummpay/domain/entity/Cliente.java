@@ -1,5 +1,7 @@
 package br.com.bummpay.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -14,6 +16,7 @@ public class Cliente {
     private String nome;
     @Column(name = "cpf", length = 11)
     private String cpf;
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)                   //UM cliente com muitos pedidos
     private Set<Pedido> pedidos;                        //Set para não repetir pedidos
 
