@@ -1,18 +1,21 @@
+/*
 package br.com.bummpay.rest.controller;
 
 import br.com.bummpay.domain.entity.Cliente;
 import br.com.bummpay.domain.repository.Clientes;
-import ch.qos.logback.core.net.server.Client;
+
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping("/api/clientes/")
 public class ClienteController_old {
 
     private Clientes clientes;
@@ -20,7 +23,8 @@ public class ClienteController_old {
     public ClienteController_old(Clientes clientes) {
         this.clientes = clientes;
     }
-    /*    @RequestMapping(
+    */
+/*    @RequestMapping(
             value = {"/api/clientes/hello/{nome}", "/api/hello"},
             method = RequestMethod.POST,
             consumes = {"application/json","application/xml"},
@@ -31,7 +35,8 @@ public class ClienteController_old {
     @ResponseBody
     public Cliente helloCliente(@PathVariable("nome") String nomeCliente, @ResponseBody Cliente cliente){
         return String.format("Hello %s ", nomeCliente);
-    };*/
+    };*//*
+
 
     @GetMapping("/api/clientes/{id}")
     @ResponseBody
@@ -87,3 +92,4 @@ public class ClienteController_old {
 
 
 }
+*/
