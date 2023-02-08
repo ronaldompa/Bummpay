@@ -10,55 +10,59 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
+
+import static org.springframework.http.HttpStatus.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/produtos")
 public class ProdutoController {
 
-    private Produtos produtos;
+    private Produtos repository;
 
-    public ProdutoController(Produtos produtos) {
-        this.produtos = produtos;
+    public ProdutoController(Produtos repository) {
+        this.repository = repository;
     }
 
     @GetMapping("{id}")
+    @ResponseStatus(NO_CONTENT)
     public Produto getByIdProduto (@PathVariable Integer id){
-        return produtos.findById(id).orElseThrow(() ->
+        return repository.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Produto não encontrado"));
     };
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Produto save(@RequestBody Produto produto){
-        return produtos.save(produto);
+    @ResponseStatus(CREATED)
+    public Produto save(@RequestBody @Valid Produto produto){
+        return repository.save(produto);
     }
-
-
     @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(NO_CONTENT)
     public void delete(@PathVariable("id") Integer id){
-        produtos.findById(id)
-                .map( produto -> {
-                    produtos.delete(produto);
-                    return produto;
+        repository.findById(id)
+                .map( p -> {
+                    repository.delete(p);
+                    return Void.TYPE;
                 })
                 .orElseThrow( () ->  new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Produto não encontrado"));
     }
 
     @PutMapping("{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable Integer id,
+    @ResponseStatus(NO_CONTENT)
+    public void update(@PathVariable @Valid Integer id,
                        @RequestBody Produto produto){
-        produtos
+        repository
                 .findById(id)
-                .map( clienteExistente -> {
-                    produto.setId(clienteExistente.getId());
-                    produtos.save(produto);
+                .map( p -> {
+                    produto.setId(p.getId());
+                    repository.save(produto);
                     return ResponseEntity.noContent().build();
-                }).orElseThrow( () ->  new ResponseStatusException(HttpStatus.NOT_FOUND,
+                }).orElseThrow( () ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Produto não encontrado"));
     }
 
@@ -69,8 +73,8 @@ public class ProdutoController {
                 .withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
         Example example = Example.of(filtro, matcher);
-        List<Cliente> lista = produtos.findAll(example);
-        return produtos.findAll(example);
+        List<Cliente> lista = repository.findAll(example);
+        return repository.findAll(example);
     }
 
 

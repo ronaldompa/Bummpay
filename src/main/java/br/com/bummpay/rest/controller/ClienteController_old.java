@@ -90,6 +90,5 @@ public class ClienteController_old {
         return ResponseEntity.ok(lista);
     }
 
-
 }
 */
